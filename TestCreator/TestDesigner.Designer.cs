@@ -135,6 +135,7 @@
             this.numericUpDownCost.Name = "numericUpDownCost";
             this.numericUpDownCost.Size = new System.Drawing.Size(58, 20);
             this.numericUpDownCost.TabIndex = 2;
+          
             // 
             // labelAnswer
             // 
