@@ -60,11 +60,9 @@
             this.mainPanel.Controls.Add(this.panel2);
             this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainPanel.Location = new System.Drawing.Point(0, 0);
-            this.mainPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.mainPanel.Name = "mainPanel";
-            this.mainPanel.Size = new System.Drawing.Size(530, 449);
+            this.mainPanel.Size = new System.Drawing.Size(1060, 863);
             this.mainPanel.TabIndex = 1;
-            this.mainPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.mainPanel_Paint);
             this.mainPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.mainPanel_MouseDown);
             this.mainPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.mainPanel_MouseMove);
             // 
@@ -73,10 +71,9 @@
             this.regAccount.AutoSize = true;
             this.regAccount.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.regAccount.ForeColor = System.Drawing.Color.Snow;
-            this.regAccount.Location = new System.Drawing.Point(198, 410);
-            this.regAccount.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.regAccount.Location = new System.Drawing.Point(396, 788);
             this.regAccount.Name = "regAccount";
-            this.regAccount.Size = new System.Drawing.Size(137, 15);
+            this.regAccount.Size = new System.Drawing.Size(267, 29);
             this.regAccount.TabIndex = 8;
             this.regAccount.Text = "You dont have account?";
             this.regAccount.Click += new System.EventHandler(this.regAccount_Click);
@@ -84,11 +81,10 @@
             // userSurnameField
             // 
             this.userSurnameField.Font = new System.Drawing.Font("Segoe UI", 13.875F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.userSurnameField.Location = new System.Drawing.Point(303, 137);
-            this.userSurnameField.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.userSurnameField.Location = new System.Drawing.Point(606, 264);
             this.userSurnameField.Multiline = true;
             this.userSurnameField.Name = "userSurnameField";
-            this.userSurnameField.Size = new System.Drawing.Size(188, 49);
+            this.userSurnameField.Size = new System.Drawing.Size(373, 90);
             this.userSurnameField.TabIndex = 7;
             this.userSurnameField.Enter += new System.EventHandler(this.userSurnameField_Enter);
             this.userSurnameField.Leave += new System.EventHandler(this.userSurnameField_Leave);
@@ -96,11 +92,10 @@
             // userNameField
             // 
             this.userNameField.Font = new System.Drawing.Font("Segoe UI", 13.875F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.userNameField.Location = new System.Drawing.Point(98, 137);
-            this.userNameField.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.userNameField.Location = new System.Drawing.Point(196, 264);
             this.userNameField.Multiline = true;
             this.userNameField.Name = "userNameField";
-            this.userNameField.Size = new System.Drawing.Size(188, 49);
+            this.userNameField.Size = new System.Drawing.Size(373, 90);
             this.userNameField.TabIndex = 6;
             this.userNameField.Enter += new System.EventHandler(this.userNameField_Enter);
             this.userNameField.Leave += new System.EventHandler(this.userNameField_Leave);
@@ -114,10 +109,9 @@
             this.regButtonClick.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(159)))), ((int)(((byte)(36)))));
             this.regButtonClick.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.regButtonClick.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.regButtonClick.Location = new System.Drawing.Point(200, 350);
-            this.regButtonClick.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.regButtonClick.Location = new System.Drawing.Point(401, 674);
             this.regButtonClick.Name = "regButtonClick";
-            this.regButtonClick.Size = new System.Drawing.Size(126, 38);
+            this.regButtonClick.Size = new System.Drawing.Size(252, 73);
             this.regButtonClick.TabIndex = 5;
             this.regButtonClick.Text = "Create";
             this.regButtonClick.UseVisualStyleBackColor = false;
@@ -126,20 +120,18 @@
             // passField
             // 
             this.passField.Font = new System.Drawing.Font("Segoe UI", 13.875F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.passField.Location = new System.Drawing.Point(303, 230);
-            this.passField.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.passField.Location = new System.Drawing.Point(606, 443);
             this.passField.Name = "passField";
-            this.passField.Size = new System.Drawing.Size(188, 32);
+            this.passField.Size = new System.Drawing.Size(373, 57);
             this.passField.TabIndex = 4;
             this.passField.UseSystemPasswordChar = true;
             // 
             // pictureBox2
             // 
             this.pictureBox2.Image = global::testSystemClient.Properties.Resources.iconfinder_102_111044;
-            this.pictureBox2.Location = new System.Drawing.Point(26, 230);
-            this.pictureBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox2.Location = new System.Drawing.Point(51, 443);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(45, 47);
+            this.pictureBox2.Size = new System.Drawing.Size(90, 90);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox2.TabIndex = 3;
             this.pictureBox2.TabStop = false;
@@ -147,11 +139,10 @@
             // loginField
             // 
             this.loginField.Font = new System.Drawing.Font("Segoe UI", 13.875F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.loginField.Location = new System.Drawing.Point(98, 230);
-            this.loginField.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.loginField.Location = new System.Drawing.Point(196, 443);
             this.loginField.Multiline = true;
             this.loginField.Name = "loginField";
-            this.loginField.Size = new System.Drawing.Size(188, 49);
+            this.loginField.Size = new System.Drawing.Size(373, 90);
             this.loginField.TabIndex = 2;
             this.loginField.Enter += new System.EventHandler(this.loginField_Enter);
             this.loginField.Leave += new System.EventHandler(this.loginField_Leave);
@@ -159,10 +150,9 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = global::testSystemClient.Properties.Resources.iconfinder_user_male2_172626;
-            this.pictureBox1.Location = new System.Drawing.Point(26, 137);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox1.Location = new System.Drawing.Point(51, 264);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(45, 47);
+            this.pictureBox1.Size = new System.Drawing.Size(90, 90);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
@@ -174,9 +164,8 @@
             this.panel2.Controls.Add(this.label1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(530, 102);
+            this.panel2.Size = new System.Drawing.Size(1060, 197);
             this.panel2.TabIndex = 0;
             // 
             // closeButton
@@ -184,10 +173,9 @@
             this.closeButton.AutoSize = true;
             this.closeButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.closeButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.closeButton.Location = new System.Drawing.Point(508, -5);
-            this.closeButton.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.closeButton.Location = new System.Drawing.Point(1017, -9);
             this.closeButton.Name = "closeButton";
-            this.closeButton.Size = new System.Drawing.Size(27, 31);
+            this.closeButton.Size = new System.Drawing.Size(54, 63);
             this.closeButton.TabIndex = 1;
             this.closeButton.Text = "x";
             this.closeButton.Click += new System.EventHandler(this.closeButton_Click);
@@ -197,9 +185,8 @@
             this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 19.875F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(0, 0);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(530, 102);
+            this.label1.Size = new System.Drawing.Size(1060, 197);
             this.label1.TabIndex = 0;
             this.label1.Text = "Registration";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -208,12 +195,11 @@
             // 
             // RegisterForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(530, 449);
+            this.ClientSize = new System.Drawing.Size(1060, 863);
             this.Controls.Add(this.mainPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "RegisterForm";
             this.Text = "RegisterForm";
             this.mainPanel.ResumeLayout(false);

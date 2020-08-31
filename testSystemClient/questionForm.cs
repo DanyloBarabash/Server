@@ -120,21 +120,6 @@ namespace testSystemClient
             }
         }
 
-        private void radio_answer3_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label_question_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label_result_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void radio_checked()
         {
             radio_answer1.Checked = false;

@@ -172,10 +172,5 @@ namespace testSystemClient
                 this.Top += e.Y - lastPoint.Y;
             }
         }
-
-        private void mainPanel_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
     }
 }
