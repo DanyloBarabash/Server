@@ -30,22 +30,18 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.mainPanel = new System.Windows.Forms.Panel();
-            this.label3 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
-            this.regAccount = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.loginField = new System.Windows.Forms.TextBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.closeBut = new System.Windows.Forms.Label();
+            this.saveSelectedExam = new System.Windows.Forms.Button();
+            this.title = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.titleTwo = new System.Windows.Forms.Label();
+            this.uploadButton = new System.Windows.Forms.Button();
             this.mainPanel.SuspendLayout();
-            this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -61,150 +57,143 @@
             // 
             // mainPanel
             // 
-            this.mainPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(54)))), ((int)(((byte)(247)))));
+            this.mainPanel.BackColor = System.Drawing.Color.DeepSkyBlue;
+            this.mainPanel.Controls.Add(this.panel2);
+            this.mainPanel.Controls.Add(this.title);
             this.mainPanel.Controls.Add(this.comboBox2);
             this.mainPanel.Controls.Add(this.label5);
             this.mainPanel.Controls.Add(this.label4);
             this.mainPanel.Controls.Add(this.comboBox1);
-            this.mainPanel.Controls.Add(this.label3);
-            this.mainPanel.Controls.Add(this.panel1);
-            this.mainPanel.Controls.Add(this.regAccount);
-            this.mainPanel.Controls.Add(this.button1);
-            this.mainPanel.Controls.Add(this.pictureBox2);
-            this.mainPanel.Controls.Add(this.loginField);
-            this.mainPanel.Controls.Add(this.pictureBox1);
+            this.mainPanel.Controls.Add(this.closeBut);
+            this.mainPanel.Controls.Add(this.saveSelectedExam);
             this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainPanel.Location = new System.Drawing.Point(0, 0);
             this.mainPanel.Name = "mainPanel";
             this.mainPanel.Size = new System.Drawing.Size(974, 929);
             this.mainPanel.TabIndex = 2;
+            this.mainPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.mainPanel_MouseDown);
+            this.mainPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.mainPanel_MouseMove);
             // 
-            // label3
+            // comboBox2
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(77, 447);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(70, 25);
-            this.label3.TabIndex = 8;
-            this.label3.Text = "label3";
-            // 
-            // panel1
-            // 
-            this.panel1.AllowDrop = true;
-            this.panel1.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.panel1.Controls.Add(this.label2);
-            this.panel1.Location = new System.Drawing.Point(420, 698);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(368, 183);
-            this.panel1.TabIndex = 7;
-            this.panel1.Click += new System.EventHandler(this.panel1_Click);
-            this.panel1.DragDrop += new System.Windows.Forms.DragEventHandler(this.panel1_DragDrop);
-            this.panel1.DragEnter += new System.Windows.Forms.DragEventHandler(this.panel1_DragEnter);
-            this.panel1.DragLeave += new System.EventHandler(this.panel1_DragLeave);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(95, 82);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(167, 31);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Drag file hire";
-            // 
-            // regAccount
-            // 
-            this.regAccount.AutoSize = true;
-            this.regAccount.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.regAccount.ForeColor = System.Drawing.Color.Snow;
-            this.regAccount.Location = new System.Drawing.Point(131, 532);
-            this.regAccount.Name = "regAccount";
-            this.regAccount.Size = new System.Drawing.Size(267, 29);
-            this.regAccount.TabIndex = 6;
-            this.regAccount.Text = "You dont have account?";
-            // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.Color.Green;
-            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(37)))), ((int)(((byte)(91)))));
-            this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(159)))), ((int)(((byte)(36)))));
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(374, 298);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(252, 73);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "Save";
-            this.button1.UseVisualStyleBackColor = false;
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Image = global::testSystemClient.Properties.Resources.iconfinder_102_111044;
-            this.pictureBox2.Location = new System.Drawing.Point(209, 782);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(90, 90);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox2.TabIndex = 3;
-            this.pictureBox2.TabStop = false;
-            // 
-            // loginField
-            // 
-            this.loginField.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.loginField.Location = new System.Drawing.Point(556, 532);
-            this.loginField.Multiline = true;
-            this.loginField.Name = "loginField";
-            this.loginField.Size = new System.Drawing.Size(373, 90);
-            this.loginField.TabIndex = 2;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::testSystemClient.Properties.Resources.iconfinder_user_male2_172626;
-            this.pictureBox1.Location = new System.Drawing.Point(91, 791);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(90, 90);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 1;
-            this.pictureBox1.TabStop = false;
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(374, 90);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(414, 33);
-            this.comboBox1.TabIndex = 9;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.SystemColors.Control;
-            this.label4.Location = new System.Drawing.Point(84, 90);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(247, 39);
-            this.label4.TabIndex = 10;
-            this.label4.Text = "Select student:";
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Location = new System.Drawing.Point(374, 209);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(414, 33);
+            this.comboBox2.TabIndex = 12;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.SystemColors.Control;
-            this.label5.Location = new System.Drawing.Point(86, 181);
+            this.label5.Location = new System.Drawing.Point(93, 209);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(223, 39);
             this.label5.TabIndex = 11;
             this.label5.Text = "Select Exam:";
             // 
-            // comboBox2
+            // label4
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(374, 181);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(414, 33);
-            this.comboBox2.TabIndex = 12;
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.SystemColors.Control;
+            this.label4.Location = new System.Drawing.Point(93, 119);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(247, 39);
+            this.label4.TabIndex = 10;
+            this.label4.Text = "Select student:";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(374, 119);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(414, 33);
+            this.comboBox1.TabIndex = 9;
+            // 
+            // closeBut
+            // 
+            this.closeBut.AutoSize = true;
+            this.closeBut.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.closeBut.Font = new System.Drawing.Font("Microsoft Sans Serif", 17F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.closeBut.ForeColor = System.Drawing.Color.Snow;
+            this.closeBut.Location = new System.Drawing.Point(917, 0);
+            this.closeBut.Name = "closeBut";
+            this.closeBut.Size = new System.Drawing.Size(54, 53);
+            this.closeBut.TabIndex = 6;
+            this.closeBut.Text = "X";
+            this.closeBut.Click += new System.EventHandler(this.closeBut_Click);
+            // 
+            // saveSelectedExam
+            // 
+            this.saveSelectedExam.BackColor = System.Drawing.Color.Green;
+            this.saveSelectedExam.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.saveSelectedExam.FlatAppearance.BorderSize = 0;
+            this.saveSelectedExam.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(37)))), ((int)(((byte)(91)))));
+            this.saveSelectedExam.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(159)))), ((int)(((byte)(36)))));
+            this.saveSelectedExam.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.saveSelectedExam.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.saveSelectedExam.Location = new System.Drawing.Point(374, 318);
+            this.saveSelectedExam.Name = "saveSelectedExam";
+            this.saveSelectedExam.Size = new System.Drawing.Size(252, 73);
+            this.saveSelectedExam.TabIndex = 5;
+            this.saveSelectedExam.Text = "Save";
+            this.saveSelectedExam.UseVisualStyleBackColor = false;
+            // 
+            // title
+            // 
+            this.title.AutoSize = true;
+            this.title.BackColor = System.Drawing.Color.Azure;
+            this.title.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.title.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.title.Location = new System.Drawing.Point(160, 24);
+            this.title.Name = "title";
+            this.title.Size = new System.Drawing.Size(648, 63);
+            this.title.TabIndex = 13;
+            this.title.Text = "Choose Exam for student.";
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.SkyBlue;
+            this.panel2.Controls.Add(this.uploadButton);
+            this.panel2.Controls.Add(this.titleTwo);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel2.Location = new System.Drawing.Point(0, 498);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(974, 431);
+            this.panel2.TabIndex = 14;
+            this.panel2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel2_MouseDown);
+            this.panel2.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panel2_MouseMove);
+            // 
+            // titleTwo
+            // 
+            this.titleTwo.AutoSize = true;
+            this.titleTwo.BackColor = System.Drawing.Color.Azure;
+            this.titleTwo.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.titleTwo.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.titleTwo.Location = new System.Drawing.Point(137, 32);
+            this.titleTwo.Name = "titleTwo";
+            this.titleTwo.Size = new System.Drawing.Size(709, 63);
+            this.titleTwo.TabIndex = 15;
+            this.titleTwo.Text = "Upload test file to Data Base";
+            // 
+            // uploadButton
+            // 
+            this.uploadButton.BackColor = System.Drawing.Color.YellowGreen;
+            this.uploadButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.uploadButton.FlatAppearance.BorderSize = 0;
+            this.uploadButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(37)))), ((int)(((byte)(91)))));
+            this.uploadButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(159)))), ((int)(((byte)(36)))));
+            this.uploadButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.uploadButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.uploadButton.Location = new System.Drawing.Point(220, 194);
+            this.uploadButton.Name = "uploadButton";
+            this.uploadButton.Size = new System.Drawing.Size(538, 73);
+            this.uploadButton.TabIndex = 16;
+            this.uploadButton.Text = "Select with file to upload";
+            this.uploadButton.UseVisualStyleBackColor = false;
+            this.uploadButton.Click += new System.EventHandler(this.uploadButton_Click);
             // 
             // controlFormTeacher
             // 
@@ -220,10 +209,8 @@
             this.Load += new System.EventHandler(this.controlFormTeacher_Load);
             this.mainPanel.ResumeLayout(false);
             this.mainPanel.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -232,17 +219,15 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel mainPanel;
-        private System.Windows.Forms.Label regAccount;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.PictureBox pictureBox2;
-        private System.Windows.Forms.TextBox loginField;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label closeBut;
+        private System.Windows.Forms.Button saveSelectedExam;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label title;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Button uploadButton;
+        private System.Windows.Forms.Label titleTwo;
     }
 }
