@@ -40,7 +40,7 @@ namespace testSystemClient
                 string sourceFile = file;
                 string destinationFile = @"C:\Users\SeedsPC\Desktop\Pizza";
                 System.IO.File.Move(sourceFile, destinationFile);
-                label3.Text += "You added file: " + file + '\n';
+                
 
             }
         }
@@ -60,6 +60,45 @@ namespace testSystemClient
             {
                 
             }
+        }
+
+        private void closeBut_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+        Point lastPoint;
+        private void mainPanel_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                this.Left += e.X - lastPoint.X;
+                this.Top += e.Y - lastPoint.Y;
+            }
+        }
+
+        private void mainPanel_MouseDown(object sender, MouseEventArgs e)
+        {
+            lastPoint = new Point(e.X, e.Y);
+        }
+
+        private void panel2_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                this.Left += e.X - lastPoint.X;
+                this.Top += e.Y - lastPoint.Y;
+            }
+        }
+
+        private void panel2_MouseDown(object sender, MouseEventArgs e)
+        {
+            lastPoint = new Point(e.X, e.Y);
+        }
+
+        private void uploadButton_Click(object sender, EventArgs e)
+        {
+            chooseFileForm chff = new chooseFileForm();
+            chff.Show();
         }
     }
 }

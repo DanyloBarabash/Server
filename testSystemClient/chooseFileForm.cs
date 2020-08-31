@@ -20,7 +20,7 @@ namespace testSystemClient
             worker.WorkerSupportsCancellation = true;
             worker.WorkerReportsProgress = true;
 
-            worker.ProgressChanged += Worker_ProgressChanged;
+            //worker.ProgressChanged += Worker_ProgressChanged;
             worker.DoWork += Worker_DoWork;
         }
 
@@ -45,10 +45,10 @@ namespace testSystemClient
             CopyFile(textBox1.Text, textBox2.Text);
         }
 
-        private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
+        //private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         
 
@@ -74,6 +74,33 @@ namespace testSystemClient
         private void button3_Click(object sender, EventArgs e)
         {
             worker.RunWorkerAsync();
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+            Close();
+        }
+        Point lastPoint;
+
+        private void panel1_MouseMove(object sender, MouseEventArgs e)
+        {
+            
+            if (e.Button == MouseButtons.Left)
+            {
+                this.Left += e.X - lastPoint.X;
+                this.Top += e.Y - lastPoint.Y;
+            }
+        }
+
+        private void panel1_MouseDown(object sender, MouseEventArgs e)
+        {
+            lastPoint = new Point(e.X, e.Y);
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }
