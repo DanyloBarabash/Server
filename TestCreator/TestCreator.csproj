@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{675AFF6A-32A0-45A1-885D-6B45E346450F}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>ExamVCE</RootNamespace>
-    <AssemblyName>ExamVCE</AssemblyName>
+    <RootNamespace>TestCreator</RootNamespace>
+    <AssemblyName>TestCreator</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -68,6 +68,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
