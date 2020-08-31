@@ -16,5 +16,8 @@ namespace DBAcademy
         public int? GroupId { get; set; }
         [ForeignKey("GroupId")]
         public Group Group { get; set; }
+
+        public double mark { get; set; }
+
     }
 }

@@ -8,12 +8,20 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.Net.Sockets;
+using System.Net;
+using testSystemClient;
+using ToMakeConnection;
 
 namespace testSystemClient
 {
     public partial class loginForm : Form
     {
+         
         
+        Socket srSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+       
+
         public loginForm()
         {
             InitializeComponent();
@@ -67,27 +75,60 @@ namespace testSystemClient
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string loginUser = loginField.Text;
-            string passUser = passField.Text;
+            string loginUser = loginField.Text.ToString();
+            string passUser = passField.Text.ToString();
 
-            DB db = new DB();
-
-            DataTable table = new DataTable();
-            table.Locale = System.Globalization.CultureInfo.InvariantCulture;
-            SqlDataAdapter adapter = new SqlDataAdapter();
-           
-            SqlCommand command = new SqlCommand("SELECT * FROM UserInfoTable WHERE login = @uL AND pass = @uP", db.getConnection());
-            command.Parameters.Add("@uL", SqlDbType.VarChar).Value = loginUser;
-            command.Parameters.Add("@uP", SqlDbType.VarChar).Value = passUser;
-            adapter.SelectCommand = command;
-            adapter.Fill(table);
-
-            if (table.Rows.Count > 0)
+            ReceiveMessageType Message = new ReceiveMessageType
             {
-                this.Hide();
-                questionForm qf = new questionForm();
-                qf.Show();
+                MessageType = MessageType.Login,
+                Data = new Logins()
+                {
+                    Login = loginUser,
+                    Password = passUser
+                }
+            };
+            IPHostEntry ipHost = Dns.GetHostEntry("localhost");
+            IPAddress ipAddr = ipHost.AddressList[1];
+            IPEndPoint ipEndPoint = new IPEndPoint(ipAddr,20000);
+            srSocket.Connect(ipEndPoint);
+            byte[] data = Serialization.ToByteArray(Message);
+            srSocket.Send(data);
+
+            data = new byte[2048];
+            do
+            {
+                srSocket.Receive(data, data.Length, 0);
             }
+            while (srSocket.Available > 0);
+
+            srSocket.Shutdown(SocketShutdown.Both);
+            srSocket.Close();
+
+           ReceiveMessageType receiveMessageType= Serialization.FromByteArray<ReceiveMessageType>(data);
+            if (receiveMessageType.MessageType == MessageType.Login)
+            {
+                MessageBox.Show("ok");
+            }
+
+
+            //DB db = new DB();
+
+            //DataTable table = new DataTable();
+            //table.Locale = System.Globalization.CultureInfo.InvariantCulture;
+            //SqlDataAdapter adapter = new SqlDataAdapter();
+           
+            //SqlCommand command = new SqlCommand("SELECT * FROM UserInfoTable WHERE login = @uL AND pass = @uP", db.getConnection());
+            //command.Parameters.Add("@uL", SqlDbType.VarChar).Value = loginUser;
+            //command.Parameters.Add("@uP", SqlDbType.VarChar).Value = passUser;
+            //adapter.SelectCommand = command;
+            //adapter.Fill(table);
+
+            //if (table.Rows.Count > 0)
+            //{
+            //    this.Hide();
+            //    questionForm qf = new questionForm();
+            //    qf.Show();
+            //}
                 
 
             else
@@ -101,6 +142,18 @@ namespace testSystemClient
             regForm.Show();
         }
 
-        
+        private void loginField_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+        private void SendResponse(Socket serverSocket,MessageType messageType, object data)
+        {
+            serverSocket.Send(Serialization.ToByteArray(new ReceiveMessageType()
+            {
+                MessageType = messageType,
+                Data = data
+
+            }));
+        }
     }
 }

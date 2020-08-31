@@ -12,6 +12,9 @@ using System.Windows.Forms;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Data.SqlClient;
 using System.Configuration;
+using System.Threading;
+using ToMakeConnection;
+
 
 namespace Server
 {
@@ -27,15 +30,14 @@ namespace Server
 
         private void start_server_Click(object sender, EventArgs e)
         {
-            connection = new SqlConnection();
-            connection.ConnectionString= ConfigurationManager.ConnectionStrings["DbConnection"].ConnectionString;
+            
 
             
 
             listenSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             IPHostEntry iPHost = Dns.GetHostEntry("localhost");
             IPAddress iPAddress = iPHost.AddressList[1];
-            int port = 8005;
+            int port = 20000;
 
             IPEndPoint iPEndPoint = new IPEndPoint(iPAddress, port);
 
@@ -62,12 +64,91 @@ namespace Server
 
         private void ReceiveClientMessage(Socket clientSocket)
         {
-            while (true)
+            new Thread(() =>
             {
-                Byte[] receivemessage = new Byte[1024];
-                Int32 nCount= clientSocket.Receive(receivemessage);
-                
+                while (true)
+            {
+                Byte[] receivemessage = new Byte[2024];
+                do
+                {
+                    int bytes = clientSocket.Receive(receivemessage);
+                }
+                while (clientSocket.Available > 0);
+                var receiveMasageType = Serialization.FromByteArray<ReceiveMessageType>(receivemessage);
+
+                Answer(clientSocket, receiveMasageType);
             }
+            }).Start();
+        }
+
+        private void Answer(Socket clientSocket, ReceiveMessageType receiveMasageType)
+        {
+            
+            command = new SqlCommand();
+            switch (receiveMasageType.MessageType)
+            {
+                case MessageType.Login:
+                    {
+                        Logins logins = (Logins)receiveMasageType.Data;
+
+                        command.CommandText = $"SELECT AuthorizationId FROM Authorization WHERE [Login]= '{logins.Login}' AND [Password]='{logins.Password}'";
+                        SqlDataReader dataReader= command.ExecuteReader();
+                        if (dataReader.FieldCount > 0)
+                        {
+                            dataReader.Close();
+                            command.CommandText = $"SELECT * FROM Teachers WHERE AuthorizationId='{dataReader.GetValue(0)}'";
+                            if (dataReader.FieldCount > 0)
+                            {
+                                dataReader.Close();
+                                command.CommandText = $"SELECT * FROM Teachers WHERE AuthorizationId='{dataReader.GetValue(0)}'";
+                                dataReader = command.ExecuteReader();
+                                Teacher teacher = new Teacher
+                                {
+                                    Id = dataReader.GetInt32(0),
+                                    First_Name = dataReader.GetString(1),
+                                    Second_Name = dataReader.GetString(2),
+                                    Test_Id = dataReader.GetInt32(4)
+                                };
+                            }
+                            else
+                            {
+                                dataReader.Close();
+                                command.CommandText = $"SELECT * FROM Students WHERE AuthorizationId='{dataReader.GetValue(0)}'";
+                                dataReader.Close();
+                                dataReader = command.ExecuteReader();
+                                Student student = new Student
+                                {
+                                    Id = dataReader.GetInt32(0),
+                                    First_Name = dataReader.GetString(1),
+                                    Second_Name = dataReader.GetString(2),
+                                    Group_Id = dataReader.GetInt32(4)
+                                };
+                            }
+                        }
+
+
+                        else
+                        {
+                            SendResponse(clientSocket, MessageType.Error, "Invalid Login or Password");
+                        }
+
+
+                    dataReader.Close();
+                        break;
+                    }
+               
+                    
+            }
+        }
+
+        private void SendResponse(Socket clientSocket, MessageType messageType, object data)
+        {
+            clientSocket.Send(Serialization.ToByteArray(new ReceiveMessageType()
+            {
+                MessageType = messageType,
+                Data = data
+
+            }));
         }
 
         private void stop_server_Click(object sender, EventArgs e)
@@ -75,8 +156,16 @@ namespace Server
             listenSocket.Close();
             connection.Close();
             
+            
+        }
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            foreach (var process in System.Diagnostics.Process.GetProcessesByName("Server"))
+            {
+                process.Kill();
+            }
         }
 
-    
+
     }
 }
