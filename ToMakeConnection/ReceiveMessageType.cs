@@ -54,6 +54,7 @@ namespace ToMakeConnection
     {
         public int Id { get; set; }
         public string Test_string { get; set; }
+        //public 
     }
     [Serializable]
     public class Result
