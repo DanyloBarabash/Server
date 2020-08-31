@@ -48,7 +48,7 @@ namespace Server
     public class Test
     {
         public int Id { get; set; }
-        public 
+        //public 
     }
     [Serializable]
     public class Result
