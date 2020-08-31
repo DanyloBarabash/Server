@@ -30,7 +30,9 @@ namespace Server
 
         private void start_server_Click(object sender, EventArgs e)
         {
-            
+            connection = new SqlConnection();
+            connection.ConnectionString= ConfigurationManager.ConnectionStrings["DbConnection"].ConnectionString;
+            connection.Open();
 
             
 
@@ -90,18 +92,23 @@ namespace Server
                 case MessageType.Login:
                     {
                         Logins logins = (Logins)receiveMasageType.Data;
-
-                        command.CommandText = $"SELECT AuthorizationId FROM Authorization WHERE [Login]= '{logins.Login}' AND [Password]='{logins.Password}'";
+                        command = new SqlCommand();
+                        command.Connection = connection;
+                        command.CommandText = $"SELECT Id FROM Authorizations WHERE [Login]= '{logins.Login}' AND [Password]='{logins.Password}'";
                         SqlDataReader dataReader= command.ExecuteReader();
-                        if (dataReader.FieldCount > 0)
+                        if (dataReader.HasRows)
                         {
-                            dataReader.Close();
-                            command.CommandText = $"SELECT * FROM Teachers WHERE AuthorizationId='{dataReader.GetValue(0)}'";
-                            if (dataReader.FieldCount > 0)
+                            int id=0;
+                            while (dataReader.Read())
                             {
-                                dataReader.Close();
-                                command.CommandText = $"SELECT * FROM Teachers WHERE AuthorizationId='{dataReader.GetValue(0)}'";
-                                dataReader = command.ExecuteReader();
+                                id = dataReader.GetInt32(0);
+                            }
+                            dataReader.Close();
+                            command.CommandText = $"SELECT * FROM Teachers WHERE AuthorizationId='{id}'";
+                            dataReader = command.ExecuteReader();
+                            if (dataReader.HasRows)
+                            {
+                                
                                 Teacher teacher = new Teacher
                                 {
                                     Id = dataReader.GetInt32(0),
@@ -112,9 +119,12 @@ namespace Server
                             }
                             else
                             {
+                                while (dataReader.Read())
+                                {
+                                    id = dataReader.GetInt32(0);
+                                }
                                 dataReader.Close();
-                                command.CommandText = $"SELECT * FROM Students WHERE AuthorizationId='{dataReader.GetValue(0)}'";
-                                dataReader.Close();
+                                command.CommandText = $"SELECT * FROM Students WHERE AuthorizationId='{id}'";
                                 dataReader = command.ExecuteReader();
                                 Student student = new Student
                                 {
@@ -123,14 +133,18 @@ namespace Server
                                     Second_Name = dataReader.GetString(2),
                                     Group_Id = dataReader.GetInt32(4)
                                 };
+                                dataReader.Close();
                             }
                         }
-
 
                         else
                         {
                             SendResponse(clientSocket, MessageType.Error, "Invalid Login or Password");
                         }
+                        
+
+
+                       
 
 
                     dataReader.Close();
@@ -155,8 +169,12 @@ namespace Server
         {
             listenSocket.Close();
             connection.Close();
-            
-            
+            foreach (var process in System.Diagnostics.Process.GetProcessesByName("Server"))
+            {
+                process.Kill();
+            }
+
+
         }
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
