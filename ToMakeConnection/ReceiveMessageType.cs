@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace ToMakeConnection
 {
@@ -18,6 +19,7 @@ namespace ToMakeConnection
         Error, 
         GetStudent,
         GetTeacher
+       
     }
     [Serializable]
     public class ReceiveMessageType
@@ -52,10 +54,11 @@ namespace ToMakeConnection
 
     }
     [Serializable]
-    public class Test
+    public class Get_Test
     {
         public int Id { get; set; }
-        public string Test_string { get; set; }
+        public XmlReader xml { get; set; }
+
         //public 
     }
     [Serializable]
@@ -64,11 +67,16 @@ namespace ToMakeConnection
         public int Student_id { get; set; }
         public double Test_Result { get; set; }
     }
+    [Serializable]
     public class Error
     {
         public string Text_Eror { get; set; }
     }
-    
+    [Serializable]
+    public class Up_Test
+    {
+        public XmlDocument xml { get; set; }
+    }
 
 
 }

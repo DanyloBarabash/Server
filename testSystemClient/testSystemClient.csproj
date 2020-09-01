@@ -63,6 +63,12 @@
       <DependentUpon>controlFormTeacher.cs</DependentUpon>
     </Compile>
     <Compile Include="DB.cs" />
+    <Compile Include="Form_student.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_student.Designer.cs">
+      <DependentUpon>Form_student.cs</DependentUpon>
+    </Compile>
     <Compile Include="loginForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -88,6 +94,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="controlFormTeacher.resx">
       <DependentUpon>controlFormTeacher.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_student.resx">
+      <DependentUpon>Form_student.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="loginForm.resx">
       <DependentUpon>loginForm.cs</DependentUpon>

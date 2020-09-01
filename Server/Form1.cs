@@ -14,7 +14,9 @@ using System.Data.SqlClient;
 using System.Configuration;
 using System.Threading;
 using ToMakeConnection;
-
+using System.Xml;
+using System.Data.SqlTypes;
+using System.Data.Common;
 
 namespace Server
 {
@@ -86,15 +88,15 @@ namespace Server
             {
 
                 command = new SqlCommand();
+                SqlDataReader dataReader;
                 switch (receiveMasageType.MessageType)
                 {
                     case MessageType.Login:
                         {
                             Logins logins = (Logins)receiveMasageType.Data;
-                            command = new SqlCommand();
                             command.Connection = connection;
                             command.CommandText = $"SELECT Id FROM Authorizations WHERE [Login]= '{logins.Login}' AND [Password]='{logins.Password}'";
-                            SqlDataReader dataReader = command.ExecuteReader();
+                            dataReader = command.ExecuteReader();
                             if (dataReader.HasRows)
                             {
                                 int id = 0;
@@ -158,6 +160,65 @@ namespace Server
                             }
                             break;
                         }
+                        case MessageType.GetTest:
+                        {
+                            Get_Test test = (Get_Test)receiveMasageType.Data;
+                            command = new SqlCommand();
+                            command.Connection = connection;
+                            command.CommandText = $"SELECT * FROM Tests WHERE [Id] ='{test.Id}' ";
+                            dataReader = command.ExecuteReader();
+                            if (dataReader.HasRows)
+                            {
+                                while (dataReader.Read())
+                                {
+                                    
+                                    var xml = dataReader.GetXmlReader(1);
+                                    test = new Get_Test
+                                    {
+                                        Id = dataReader.GetInt32(0),
+                                        xml = xml
+                                    };
+                                    dataReader.Close();
+
+                                    
+                                }
+                                SendResponse(clientSocket, MessageType.GetTest, test);
+                            }
+                            else
+                            {
+                                dataReader.Close();
+                                SendResponse(clientSocket, MessageType.Error, "No Test for you");
+                            }
+                            break;
+                        }
+                         case MessageType.UploadTest:
+                        {
+                            Up_Test test = (Up_Test)receiveMasageType.Data;
+                            XmlDocument xmlToSave = test.xml;
+                            command = new SqlCommand();
+                            command.Connection = connection;
+                            String sql = $"INSERT INTO Tests(Xml_Value) VALUES (@xml)";
+                            xmlToSave.FirstChild.InnerText = "version=\"1.0\" encoding=\"UTF-16\"";
+                            command.CommandText = sql;
+                            command.Parameters.Add(
+                              new SqlParameter("@xml", SqlDbType.Xml)
+                              {
+                                  Value = new SqlXml(new XmlTextReader(xmlToSave.InnerXml , XmlNodeType.Document, null))
+                              });
+                            DbTransaction trans = connection.BeginTransaction();
+                            try
+                            {
+                                command.ExecuteNonQuery();
+                                trans.Commit();
+                            }
+                            catch (Exception)
+                            {
+                                trans.Rollback();
+                                throw;
+                            }
+                            SendResponse(clientSocket, MessageType.Error, "Test In DataBase");
+                            break;
+                        }
                 }
             }
             catch(Exception e)
@@ -166,6 +227,7 @@ namespace Server
             }
             finally
             {
+               
                 clientSocket.Shutdown(SocketShutdown.Both);
                 clientSocket.Close();
             }

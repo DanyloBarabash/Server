@@ -78,6 +78,7 @@ namespace testSystemClient
             string loginUser = loginField.Text.ToString();
             string passUser = passField.Text.ToString();
 
+           
             ReceiveMessageType Message = new ReceiveMessageType
             {
                 MessageType = MessageType.Login,
@@ -107,7 +108,9 @@ namespace testSystemClient
             ReceiveMessageType receiveMessageType= Serialization.FromByteArray<ReceiveMessageType>(data);
             if (receiveMessageType.MessageType == MessageType.GetTeacher || receiveMessageType.MessageType==MessageType.GetStudent)
             {
+                Student student = (Student)receiveMessageType.Data;
                 MessageBox.Show("ok");
+                MessageBox.Show($"'{student.Second_Name}'");
             }
 
 
