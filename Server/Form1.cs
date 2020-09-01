@@ -17,6 +17,7 @@ using ToMakeConnection;
 using System.Xml;
 using System.Data.SqlTypes;
 using System.Data.Common;
+using System.Xml.Linq;
 
 namespace Server
 {
@@ -194,7 +195,8 @@ namespace Server
                          case MessageType.UploadTest:
                         {
                             Up_Test test = (Up_Test)receiveMasageType.Data;
-                            XmlDocument xmlToSave = test.xml;
+                            XmlDocument xmlToSave = new XmlDocument();
+                            xmlToSave.LoadXml(test.xml);
                             command = new SqlCommand();
                             command.Connection = connection;
                             String sql = $"INSERT INTO Tests(Xml_Value) VALUES (@xml)";

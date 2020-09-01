@@ -7,11 +7,16 @@ using System.Text;
 using System.Windows.Forms;
 using System.Net.Sockets;
 using System.IO;
+using System.Xml;
+using ToMakeConnection;
+using System.Net;
+using System.Xml.Linq;
 
 namespace testSystemClient
 {
     public partial class chooseFileForm : Form
     {
+        Socket srSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         BackgroundWorker worker = new BackgroundWorker();
         public chooseFileForm()
         {
@@ -74,6 +79,42 @@ namespace testSystemClient
         private void button3_Click(object sender, EventArgs e)
         {
             worker.RunWorkerAsync();
+            XmlDocument xml = new XmlDocument();
+            
+            xml.Load("C:\\Users\\barab\\Desktop\\1.xml");
+
+
+            ReceiveMessageType Message = new ReceiveMessageType
+            {
+                MessageType = MessageType.UploadTest,
+                Data = new Up_Test()
+                {
+                    xml = xml.ToString()
+                }
+            };
+            IPHostEntry ipHost = Dns.GetHostEntry("localhost");
+            IPAddress ipAddr = ipHost.AddressList[1];
+            IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, 20000);
+            srSocket.Connect(ipEndPoint);
+            byte[] data = Serialization.ToByteArray(Message);
+            srSocket.Send(data);
+
+            data = new byte[2048];
+            do
+            {
+                srSocket.Receive(data, data.Length, 0);
+            }
+            while (srSocket.Available > 0);
+
+            srSocket.Shutdown(SocketShutdown.Both);
+            srSocket.Close();
+
+            ReceiveMessageType receiveMessageType = Serialization.FromByteArray<ReceiveMessageType>(data);
+            if (receiveMessageType.MessageType == MessageType.Error)
+            {
+                
+                MessageBox.Show($"ok");
+            }
         }
 
         private void label2_Click(object sender, EventArgs e)

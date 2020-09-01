@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using System.Xml.Linq;
 
 namespace ToMakeConnection
 {
@@ -57,6 +58,7 @@ namespace ToMakeConnection
     public class Get_Test
     {
         public int Id { get; set; }
+        
         public XmlReader xml { get; set; }
 
         //public 
@@ -75,7 +77,7 @@ namespace ToMakeConnection
     [Serializable]
     public class Up_Test
     {
-        public XmlDocument xml { get; set; }
+        public string xml { get; set; }
     }
 
 

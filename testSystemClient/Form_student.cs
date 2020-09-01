@@ -9,6 +9,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 using ToMakeConnection;
 
 namespace testSystemClient
@@ -24,10 +25,15 @@ namespace testSystemClient
 
         private void button1_Click(object sender, EventArgs e)
         {
+            XmlReader reader=null;
             ReceiveMessageType Message = new ReceiveMessageType
             {
                 MessageType = MessageType.GetTest,
-                Data = null
+                Data = new Get_Test
+                {
+                    Id = 1,
+                    xml=reader
+                }
             };
             IPHostEntry ipHost = Dns.GetHostEntry("localhost");
             IPAddress ipAddr = ipHost.AddressList[1];
