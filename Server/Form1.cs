@@ -23,6 +23,7 @@ namespace Server
         SqlConnection connection;
         Socket listenSocket;
         SqlCommand command;
+       
         public Form1()
         {
             InitializeComponent();
@@ -31,10 +32,10 @@ namespace Server
         private void start_server_Click(object sender, EventArgs e)
         {
             connection = new SqlConnection();
-            connection.ConnectionString= ConfigurationManager.ConnectionStrings["DbConnection"].ConnectionString;
+            connection.ConnectionString = ConfigurationManager.ConnectionStrings["DbConnection"].ConnectionString;
             connection.Open();
 
-            
+
 
             listenSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             IPHostEntry iPHost = Dns.GetHostEntry("localhost");
@@ -42,130 +43,127 @@ namespace Server
             int port = 20000;
 
             IPEndPoint iPEndPoint = new IPEndPoint(iPAddress, port);
-
-            listenSocket.Bind(iPEndPoint);
-
-            Task.Factory.StartNew(
-                () => ListenThreat(listenSocket)
-                );
-        }
-        private void ListenThreat(Socket listenSocket)
-        {
+            try { 
+        
+            listenSocket.Bind(iPEndPoint); 
             listenSocket.Listen(5);
-            while (true)
-            {
-                Socket clientSocket=  listenSocket.Accept();
-                Info info = new Info() { RemoteEndPoint = clientSocket.RemoteEndPoint.ToString(), clientSocket = clientSocket };
+                   
+                        new Thread(() =>
+                        {
+                            while (true)
+                            {
+                                Socket clientSocket=  listenSocket.Accept();
+                                Info info = new Info() { RemoteEndPoint = clientSocket.RemoteEndPoint.ToString(), clientSocket = clientSocket };
+                                Byte[] receivemessage = new Byte[2024];
+                                do
+                                {
+                                    int bytes = clientSocket.Receive(receivemessage);
+                                }
+                                while (clientSocket.Available > 0);
 
-                Task.Factory.StartNew(
-                    () =>ReceiveClientMessage(clientSocket)
-                    );
-            }
-            
-        }
+                                var receiveMasageType = Serialization.FromByteArray<ReceiveMessageType>(receivemessage);
+
+                                Answer(clientSocket, receiveMasageType);
+                            }
+                        }).Start();
+                    }
+                    catch {}
+
+         }
 
         private void ReceiveClientMessage(Socket clientSocket)
         {
-            new Thread(() =>
-            {
-                while (true)
-            {
-                Byte[] receivemessage = new Byte[2024];
-                do
-                {
-                    int bytes = clientSocket.Receive(receivemessage);
-                }
-                while (clientSocket.Available > 0);
-                var receiveMasageType = Serialization.FromByteArray<ReceiveMessageType>(receivemessage);
-
-                Answer(clientSocket, receiveMasageType);
-            }
-            }).Start();
+         
         }
 
         private void Answer(Socket clientSocket, ReceiveMessageType receiveMasageType)
         {
-            
-            command = new SqlCommand();
-            switch (receiveMasageType.MessageType)
+            try
             {
-                case MessageType.Login:
-                    {
-                        Logins logins = (Logins)receiveMasageType.Data;
-                        command = new SqlCommand();
-                        command.Connection = connection;
-                        command.CommandText = $"SELECT Id FROM Authorizations WHERE [Login]= '{logins.Login}' AND [Password]='{logins.Password}'";
-                        SqlDataReader dataReader= command.ExecuteReader();
-                        if (dataReader.HasRows)
+
+                command = new SqlCommand();
+                switch (receiveMasageType.MessageType)
+                {
+                    case MessageType.Login:
                         {
-                            int id=0;
-                            while (dataReader.Read())
-                            {
-                                id = dataReader.GetInt32(0);
-                            }
-                            dataReader.Close();
-                            command.CommandText = $"SELECT * FROM Teachers WHERE AuthorizationId='{id}'";
-                            dataReader = command.ExecuteReader();
+                            Logins logins = (Logins)receiveMasageType.Data;
+                            command = new SqlCommand();
+                            command.Connection = connection;
+                            command.CommandText = $"SELECT Id FROM Authorizations WHERE [Login]= '{logins.Login}' AND [Password]='{logins.Password}'";
+                            SqlDataReader dataReader = command.ExecuteReader();
                             if (dataReader.HasRows)
                             {
-                                Teacher teacher = null;
-                                while (dataReader.Read())
-                                {
-                                   
-                               
-                                 teacher = new Teacher
-                                {
-                                    Id = dataReader.GetInt32(0),
-                                    First_Name = dataReader.GetString(1),
-                                    Second_Name = dataReader.GetString(2),
-                                    Test_Id = dataReader.GetInt32(4)
-                                }; 
-                                }
-                                SendResponse(clientSocket, MessageType.GetTeacher, teacher);
-                            }
-                            else
-                            {
+                                int id = 0;
                                 while (dataReader.Read())
                                 {
                                     id = dataReader.GetInt32(0);
                                 }
                                 dataReader.Close();
-                                command.CommandText = $"SELECT * FROM Students WHERE AuthorizationId='{id}'";
+                                command.CommandText = $"SELECT * FROM Teachers WHERE AuthorizationId='{id}'";
                                 dataReader = command.ExecuteReader();
-                                Student student=null;
-                                while (dataReader.Read())
+                                if (dataReader.HasRows)
                                 {
-                                student = new Student
-                                {
+                                    Teacher teacher = null;
+                                    while (dataReader.Read())
+                                    {
 
-                                    Id = dataReader.GetInt32(0),
-                                    First_Name = dataReader.GetString(1),
-                                    Second_Name = dataReader.GetString(2),
-                                    Group_Id = dataReader.GetInt32(4)
-                                }; 
-                                   
+
+                                        teacher = new Teacher
+                                        {
+                                            Id = dataReader.GetInt32(0),
+                                            First_Name = dataReader.GetString(1),
+                                            Second_Name = dataReader.GetString(2),
+                                            Test_Id = dataReader.GetInt32(4)
+                                        };
+                                    }
+                                    SendResponse(clientSocket, MessageType.GetTeacher, teacher);
                                 }
-                                dataReader.Close();
-                                SendResponse(clientSocket, MessageType.GetStudent, student );
+                                else
+                                {
+                                    while (dataReader.Read())
+                                    {
+                                        id = dataReader.GetInt32(0);
+                                    }
+                                    dataReader.Close();
+                                    command.CommandText = $"SELECT * FROM Students WHERE AuthorizationId='{id}'";
+                                    dataReader = command.ExecuteReader();
+                                    Student student = null;
+                                    while (dataReader.Read())
+                                    {
+                                        student = new Student
+                                        {
+
+                                            Id = dataReader.GetInt32(0),
+                                            First_Name = dataReader.GetString(1),
+                                            Second_Name = dataReader.GetString(2),
+                                            Group_Id = dataReader.GetInt32(4)
+                                        };
+
+                                    }
+                                    dataReader.Close();
+                                    SendResponse(clientSocket, MessageType.GetStudent, student);
+                                }
                             }
+
+
+                            else
+                            {
+                                dataReader.Close();
+                                SendResponse(clientSocket, MessageType.Error, "Invalid Login or Password");
+
+                            }
+                            break;
                         }
-                        
-
-                        else
-                        {
-                            SendResponse(clientSocket, MessageType.Error, "Invalid Login or Password");
-                        }
-                        
-
-
-                       
-
-
-                    dataReader.Close();
-                        break;
-                    }
-               
-                    
+                }
+            }
+            catch(Exception e)
+            {
+                SendResponse(clientSocket, MessageType.Error, $"Respond Error: {e.Message}");
+            }
+            finally
+            {
+                clientSocket.Shutdown(SocketShutdown.Both);
+                clientSocket.Close();
             }
         }
 
@@ -181,12 +179,14 @@ namespace Server
 
         private void stop_server_Click(object sender, EventArgs e)
         {
+            
+           
             listenSocket.Close();
             connection.Close();
-            foreach (var process in System.Diagnostics.Process.GetProcessesByName("Server"))
-            {
-                process.Kill();
-            }
+            //foreach (var process in System.Diagnostics.Process.GetProcessesByName("Server"))
+            //{
+            //    process.Kill();
+            //}
 
 
         }
