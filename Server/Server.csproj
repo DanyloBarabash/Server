@@ -45,7 +45,8 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="ToMakeConnection">
+    <Reference Include="ToMakeConnection, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\ToMakeConnection\bin\Debug\ToMakeConnection.dll</HintPath>
     </Reference>
   </ItemGroup>

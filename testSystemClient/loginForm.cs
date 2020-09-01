@@ -105,7 +105,7 @@ namespace testSystemClient
             srSocket.Close();
 
            ReceiveMessageType receiveMessageType= Serialization.FromByteArray<ReceiveMessageType>(data);
-            if (receiveMessageType.MessageType == MessageType.Login)
+            if (receiveMessageType.MessageType == MessageType.GetTeacher || receiveMessageType.MessageType==MessageType.GetStudent)
             {
                 MessageBox.Show("ok");
             }

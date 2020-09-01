@@ -15,7 +15,9 @@ namespace ToMakeConnection
         GetTest,
         UploadTest,
         GetResult,
-        Error
+        Error, 
+        GetStudent,
+        GetTeacher
     }
     [Serializable]
     public class ReceiveMessageType
@@ -62,6 +64,11 @@ namespace ToMakeConnection
         public int Student_id { get; set; }
         public double Test_Result { get; set; }
     }
+    public class Error
+    {
+        public string Text_Eror { get; set; }
+    }
+    
 
 
 }

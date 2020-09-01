@@ -108,14 +108,20 @@ namespace Server
                             dataReader = command.ExecuteReader();
                             if (dataReader.HasRows)
                             {
-                                
-                                Teacher teacher = new Teacher
+                                Teacher teacher = null;
+                                while (dataReader.Read())
+                                {
+                                   
+                               
+                                 teacher = new Teacher
                                 {
                                     Id = dataReader.GetInt32(0),
                                     First_Name = dataReader.GetString(1),
                                     Second_Name = dataReader.GetString(2),
                                     Test_Id = dataReader.GetInt32(4)
-                                };
+                                }; 
+                                }
+                                SendResponse(clientSocket, MessageType.GetTeacher, teacher);
                             }
                             else
                             {
@@ -126,16 +132,24 @@ namespace Server
                                 dataReader.Close();
                                 command.CommandText = $"SELECT * FROM Students WHERE AuthorizationId='{id}'";
                                 dataReader = command.ExecuteReader();
-                                Student student = new Student
+                                Student student=null;
+                                while (dataReader.Read())
                                 {
+                                student = new Student
+                                {
+
                                     Id = dataReader.GetInt32(0),
                                     First_Name = dataReader.GetString(1),
                                     Second_Name = dataReader.GetString(2),
                                     Group_Id = dataReader.GetInt32(4)
-                                };
+                                }; 
+                                   
+                                }
                                 dataReader.Close();
+                                SendResponse(clientSocket, MessageType.GetStudent, student );
                             }
                         }
+                        
 
                         else
                         {
