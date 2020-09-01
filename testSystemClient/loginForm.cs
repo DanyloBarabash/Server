@@ -104,7 +104,7 @@ namespace testSystemClient
             srSocket.Shutdown(SocketShutdown.Both);
             srSocket.Close();
 
-           ReceiveMessageType receiveMessageType= Serialization.FromByteArray<ReceiveMessageType>(data);
+            ReceiveMessageType receiveMessageType= Serialization.FromByteArray<ReceiveMessageType>(data);
             if (receiveMessageType.MessageType == MessageType.GetTeacher || receiveMessageType.MessageType==MessageType.GetStudent)
             {
                 MessageBox.Show("ok");
@@ -116,7 +116,7 @@ namespace testSystemClient
             //DataTable table = new DataTable();
             //table.Locale = System.Globalization.CultureInfo.InvariantCulture;
             //SqlDataAdapter adapter = new SqlDataAdapter();
-           
+
             //SqlCommand command = new SqlCommand("SELECT * FROM UserInfoTable WHERE login = @uL AND pass = @uP", db.getConnection());
             //command.Parameters.Add("@uL", SqlDbType.VarChar).Value = loginUser;
             //command.Parameters.Add("@uP", SqlDbType.VarChar).Value = passUser;
@@ -129,10 +129,13 @@ namespace testSystemClient
             //    questionForm qf = new questionForm();
             //    qf.Show();
             //}
-                
 
-            else
+
+            else { 
                 MessageBox.Show("No");
+            }
+
+           
         }
 
         private void regAccount_Click(object sender, EventArgs e)

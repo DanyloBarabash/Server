@@ -43,37 +43,41 @@ namespace Server
             int port = 20000;
 
             IPEndPoint iPEndPoint = new IPEndPoint(iPAddress, port);
-            try { 
+           
         
             listenSocket.Bind(iPEndPoint); 
             listenSocket.Listen(5);
-                   
+                  
                         new Thread(() =>
-                        {
+                        { 
+                        try { 
                             while (true)
                             {
                                 Socket clientSocket=  listenSocket.Accept();
                                 Info info = new Info() { RemoteEndPoint = clientSocket.RemoteEndPoint.ToString(), clientSocket = clientSocket };
-                                Byte[] receivemessage = new Byte[2024];
-                                do
-                                {
-                                    int bytes = clientSocket.Receive(receivemessage);
-                                }
-                                while (clientSocket.Available > 0);
-
-                                var receiveMasageType = Serialization.FromByteArray<ReceiveMessageType>(receivemessage);
-
-                                Answer(clientSocket, receiveMasageType);
+                                ReceiveClientMessage(clientSocket);
+                            } 
                             }
+                            catch  {}
                         }).Start();
-                    }
-                    catch {}
 
+
+
+            MessageBox.Show("Server is working");
          }
-
+        
         private void ReceiveClientMessage(Socket clientSocket)
         {
-         
+            Byte[] receivemessage = new Byte[2024];
+            do
+            {
+                int bytes = clientSocket.Receive(receivemessage);
+            }
+            while (clientSocket.Available > 0);
+
+            var receiveMasageType = Serialization.FromByteArray<ReceiveMessageType>(receivemessage);
+
+            Answer(clientSocket, receiveMasageType);
         }
 
         private void Answer(Socket clientSocket, ReceiveMessageType receiveMasageType)
@@ -183,6 +187,7 @@ namespace Server
            
             listenSocket.Close();
             connection.Close();
+            MessageBox.Show("Server stoped");
             //foreach (var process in System.Diagnostics.Process.GetProcessesByName("Server"))
             //{
             //    process.Kill();
