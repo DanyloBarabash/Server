@@ -1,4 +1,4 @@
-﻿namespace TestCreator
+﻿namespace Laba
 {
     partial class TestDesigner
     {
@@ -126,7 +126,6 @@
             this.tableLayoutPanel1.SetRowSpan(this.textBoxQuestion, 6);
             this.textBoxQuestion.Size = new System.Drawing.Size(326, 206);
             this.textBoxQuestion.TabIndex = 7;
-            this.textBoxQuestion.TextChanged += new System.EventHandler(this.textBoxQuestion_TextChanged);
             // 
             // numericUpDownCost
             // 
@@ -135,7 +134,6 @@
             this.numericUpDownCost.Name = "numericUpDownCost";
             this.numericUpDownCost.Size = new System.Drawing.Size(58, 20);
             this.numericUpDownCost.TabIndex = 2;
-          
             // 
             // labelAnswer
             // 
@@ -171,6 +169,7 @@
             // 
             // checkedListBoxAnswer
             // 
+            this.checkedListBoxAnswer.AccessibleName = "Усі відповіді на запитання";
             this.tableLayoutPanel1.SetColumnSpan(this.checkedListBoxAnswer, 4);
             this.checkedListBoxAnswer.Enabled = false;
             this.checkedListBoxAnswer.FormattingEnabled = true;

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TestCreator.Properties {
+namespace Laba.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

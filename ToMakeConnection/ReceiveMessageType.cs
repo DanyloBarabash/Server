@@ -17,10 +17,10 @@ namespace ToMakeConnection
         GetTest,
         UploadTest,
         GetResult,
-        Error, 
+        Error,
         GetStudent,
         GetTeacher
-       
+
     }
     [Serializable]
     public class ReceiveMessageType
@@ -58,7 +58,7 @@ namespace ToMakeConnection
     public class Get_Test
     {
         public int Id { get; set; }
-        
+
         public XmlReader xml { get; set; }
 
         //public 
@@ -67,7 +67,7 @@ namespace ToMakeConnection
     public class Result
     {
         public int Student_id { get; set; }
-        public double Test_Result { get; set; }
+        public float Test_Result { get; set; }
     }
     [Serializable]
     public class Error
@@ -79,8 +79,15 @@ namespace ToMakeConnection
     {
         public string xml { get; set; }
     }
-
-
+    [Serializable]
+    public class Add_User
+    {
+        public bool isTeacher { get; set; }
+        public Logins login { get; set; }
+        public Teacher teacher_info { get; set; }
+        public Student student_info { get; set; }
+    }
 }
+    
 
 

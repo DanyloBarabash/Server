@@ -11,8 +11,7 @@ using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace TestCreator
-
+namespace Laba
 {
     public partial class TestDesigner : Form
     {
@@ -60,7 +59,7 @@ namespace TestCreator
             tests.Clear();
 
             textBoxQuestion.Clear();
-            tests.Add(new MakeTest() { NameTeacher = "Melnychuk Vasyl", questions = questions, Subject = "Programing" });
+            tests.Add(new MakeTest() { NameTeacher = "Marko O.", questions = questions, Subject = ".Net" });
             foreach (var test in tests)
             {
                 textBoxQuestion.Text += $"Subject: {test.Subject} Name: {test.NameTeacher}";
@@ -125,12 +124,5 @@ namespace TestCreator
             }
             
         }
-
-        private void textBoxQuestion_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-       
     }
 }

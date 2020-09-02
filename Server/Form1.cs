@@ -221,6 +221,77 @@ namespace Server
                             SendResponse(clientSocket, MessageType.Error, "Test In DataBase");
                             break;
                         }
+                        case MessageType.CreateUser:
+                        {
+                            Add_User user = (Add_User)receiveMasageType.Data;
+                            command.Connection = connection;
+                            int id=0;
+                            if (user.isTeacher)
+                            {
+                                command.CommandText = $"INSERT INTO Authorizations(Login,Password) VALUES('{user.login.Login}', '{user.login.Password}')" ;
+                                command.CommandText = $"SELECT Id FROM Authorizations WHERE [Login]= '{user.login.Login}' AND [Password]='{user.login.Password}'";
+                                dataReader = command.ExecuteReader();
+                                while (dataReader.Read())
+                                {
+                                    id = dataReader.GetInt32(0);
+                                }
+                                command.CommandText = $"INSERT INTO Teacher (FirstName, LastName,AuthorizationId) VALUES('{user.teacher_info.First_Name}', '{user.teacher_info.Second_Name}','{id}')";
+                                dataReader.Close();
+                            }
+                            else
+                            {
+                                command.CommandText = $"INSERT INTO Authorizations(Login,Password) VALUES('{user.login.Login}', '{user.login.Password}')";
+                                command.CommandText = $"SELECT Id FROM Authorizations WHERE [Login]= '{user.login.Login}' AND [Password]='{user.login.Password}'";
+                                dataReader = command.ExecuteReader();
+                                while (dataReader.Read())
+                                {
+                                    id = dataReader.GetInt32(0);
+                                }
+                                command.CommandText = $"INSERT INTO Student(FirstName, LastName, AuthorizationId, GroupId) VALUES('{user.student_info.First_Name}', '{user.student_info.Second_Name}','{id}','{user.student_info.Group_Id}')";
+                                dataReader.Close();
+                            }
+
+                            SendResponse(clientSocket, MessageType.Error, "Ok");
+                            break;
+                        }
+                            case MessageType.GetResult:
+                    {
+                            Result result = (Result)receiveMasageType.Data;
+                            command.Connection = connection;
+                            if (result.Test_Result == 0) 
+                            { 
+                            int id = result.Student_id;
+                            command.CommandText = $"SELECT Mark FROM Students WHERE [Id]= '{id}'";
+                            dataReader = command.ExecuteReader();
+                             Result resultAns;
+                            while (dataReader.Read())
+                            {
+                                resultAns = new Result
+                                {
+                                    Student_id = id,
+                                    Test_Result = dataReader.GetFloat(0)
+                                };
+                            }
+                            SendResponse(clientSocket, MessageType.GetResult, "Ok");
+                            }
+                            else
+                            {
+                                int id = result.Student_id; 
+                                float mark=result.Test_Result;
+                                command.CommandText = $"SELECT Mark FROM Students WHERE [Id]= '{id}'";
+                                dataReader = command.ExecuteReader();
+                               
+                                while (dataReader.Read())
+                                {
+                                    mark += dataReader.GetFloat(0);
+                                }
+                                command.CommandText = $"UPDATE Students SET mark='{mark}' WHERE [Id]='{id}'";
+                            }
+                            SendResponse(clientSocket, MessageType.GetResult, "Ok");
+                            break;
+                    }
+
+                        
                 }
             }
             catch(Exception e)
