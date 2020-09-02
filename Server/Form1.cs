@@ -283,7 +283,7 @@ namespace Server
                                
                                 while (dataReader.Read())
                                 {
-                                    mark += dataReader.GetFloat(0);
+                                    mark =(mark+ dataReader.GetFloat(0))/2;
                                 }
                                 command.CommandText = $"UPDATE Students SET mark='{mark}' WHERE [Id]='{id}'";
                             }
